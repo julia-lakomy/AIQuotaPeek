@@ -1,0 +1,12 @@
+.deps/
+__pycache__/
+.pytest_cache/
+*.pyc
+.agents/
+.aws/
+.codex/
+browser-config/
+browser-data/
+browser-cache/
+.venv/
+*.log

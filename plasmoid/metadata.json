@@ -1,0 +1,15 @@
+{
+  "KPackageStructure": "Plasma/Applet",
+  "KPlugin": {
+    "Id": "org.limityai.widget",
+    "Name": "Limity AI",
+    "Description": "Pozostałe limity ChatGPT i Claude",
+    "Icon": "view-statistics",
+    "Category": "Utilities",
+    "License": "MIT",
+    "Version": "0.1.0"
+  },
+  "X-Plasma-API": "declarativeappletscript",
+  "X-Plasma-API-Minimum-Version": "6.0",
+  "X-Plasma-MainScript": "ui/main.qml"
+}
