@@ -3,9 +3,9 @@
   "KPlugin": {
     "Id": "limity_ai_fullscreen",
     "Name": "Limity AI: pauza na pełnym ekranie",
-    "Description": "Informuje widget Limity AI o widocznym oknie pełnoekranowym",
+    "Description": "Informuje widżet Limity AI o widocznym oknie pełnoekranowym",
     "License": "MIT",
-    "Version": "0.1.0"
+    "Version": "0.1.3"
   },
   "X-Plasma-API": "javascript"
 }

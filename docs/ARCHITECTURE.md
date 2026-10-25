@@ -1,4 +1,4 @@
-# Dokumentacja techniczna
+# AIQuotaPeek — dokumentacja techniczna
 
 ## Przepływ danych
 
@@ -51,6 +51,8 @@ Na poziomie całej usługi `paused` sygnalizuje pełny ekran lub brak aktualnego
 | `~/.local/share/plasma/plasmoids/org.limityai.widget/contents/code/Config.js` | Port i lokalny token dla widżetu; uprawnienia `0600`. |
 
 Katalog `.deps` zawiera opcjonalne moduły PyQt6 rozpakowane przez instalator i jest ignorowany przez Git. Usługa systemd wskazuje bezpośrednio na `backend/app.py` w katalogu projektu. Po przeniesieniu projektu instalator trzeba uruchomić ponownie. Obecne skrypty diagnostyczne i domyślna ścieżka konfiguracji czytnika zakładają standardowe lokalizacje `~/.config` i `~/.local/share`.
+
+Nazwa projektu i przyszłego repozytorium to **AIQuotaPeek**, a nazwa widżetu widoczna w KDE to **Limity AI**. Identyfikator pakietu `org.limityai.widget`, nazwa usługi `limity-ai-widget.service` i ścieżki profilu zachowały dawne wartości, aby aktualizacja nie usunęła widżetu z panelu ani zapisanych sesji. Zmiana tych identyfikatorów wymagałaby osobnej migracji.
 
 ## Zmiany w parserze i sprawdzanie
 

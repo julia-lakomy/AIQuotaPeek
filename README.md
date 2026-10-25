@@ -1,6 +1,6 @@
-# Limity AI
+# AIQuotaPeek
 
-Osobisty widżet dla panelu KDE Plasma 6. Pokazuje, ile procent limitu **pozostało** na kontach ChatGPT i Claude. Po kliknięciu wyświetla dostępne limity sesji i tygodnia, czasy resetu oraz godzinę ostatniego udanego odczytu.
+AIQuotaPeek to projekt osobistego widżetu **Limity AI** dla panelu KDE Plasma 6. Widżet pokazuje, ile procent limitu **pozostało** na kontach ChatGPT i Claude. Po kliknięciu wyświetla dostępne limity sesji i tygodnia, czasy resetu oraz godzinę ostatniego udanego odczytu.
 
 Przykład napisu w panelu: `GPT 42% · Claude 12%`. Gdy serwis podaje dwa limity, panel pokazuje niższy z dwóch pozostałych procentów. Szczegóły każdego limitu są w rozwijanym widżecie. `—` oznacza, że nie ma jeszcze odczytu dla danej usługi.
 

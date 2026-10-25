@@ -8,4 +8,4 @@ kpackagetool6 -t Plasma/Applet -r org.limityai.widget || true
 kpackagetool6 -t KWin/Script -r limity_ai_fullscreen || true
 kwriteconfig6 --file kwinrc --group Plugins --key limity_ai_fullscreenEnabled false
 qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || true
-echo "Usunięto usługę i widżet. Dane przeglądarki pozostały w ~/.local/share/limity-ai-widget."
+echo "Usunięto widżet „Limity AI”. Dane przeglądarki pozostały w ~/.local/share/limity-ai-widget."

@@ -84,5 +84,5 @@ EOF
 systemctl --user daemon-reload
 systemctl --user enable --now limity-ai-widget.service
 
-echo "Zainstalowano Limity AI. Dodaj widżet „Limity AI” do panelu Plasma, jeśli nie jest jeszcze widoczny."
+echo "Zainstalowano widżet „Limity AI” z projektu AIQuotaPeek. Dodaj go do panelu Plasma, jeśli nie jest jeszcze widoczny."
 echo "Przy pierwszym użyciu kliknij widżet, aby otworzyć dedykowanego Falkona i zalogować się."
