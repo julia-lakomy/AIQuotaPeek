@@ -1,106 +1,106 @@
 # AIQuotaPeek
 
-AIQuotaPeek to projekt osobistego widżetu **Limity AI** dla panelu KDE Plasma 6. Widżet pokazuje, ile procent limitu **pozostało** na kontach ChatGPT i Claude. Po kliknięciu wyświetla dostępne limity sesji i tygodnia, czasy resetu oraz godzinę ostatniego udanego odczytu.
+AIQuotaPeek is the project behind **Limity AI**, a personal KDE Plasma 6 panel widget. It shows the percentage of each ChatGPT and Claude usage limit that **remains**. Open the widget to see available session and weekly limits, reset times, and the time of the last successful reading.
 
-Przykład napisu w panelu: `GPT 42% · Claude 12%`. Gdy serwis podaje dwa limity, panel pokazuje niższy z dwóch pozostałych procentów. Szczegóły każdego limitu są w rozwijanym widżecie. `—` oznacza, że nie ma jeszcze odczytu dla danej usługi.
+Example panel text: `GPT 42% · Claude 12%`. When a service provides two limits, the panel shows the lower remaining percentage. Open the widget for the individual values. `—` means that no value is available for that service yet.
 
-## Szybki start
+## Quick start
 
-Projekt został przygotowany dla tego komputera z Ubuntu 26.04 i KDE Plasma 6. Instalator zakłada dostępność Falkona pod `/usr/bin/falkon`, Pythona 3, narzędzi Plasma i KWin, `systemctl --user` oraz `rg`. Jeśli brakuje modułów PyQt6 WebEngine, pobiera odpowiednie pakiety przez `apt download` i rozpakowuje je do `.deps` w projekcie. Nie instaluje samego Falkona.
+The project has been tested on Ubuntu 26.04 with KDE Plasma 6. The installer expects Falkon at `/usr/bin/falkon`, Python 3, Plasma and KWin tools, `systemctl --user`, and `rg`. If PyQt6 WebEngine modules are missing, it downloads the required packages with `apt download` and extracts them into the project's `.deps` directory. It does not install Falkon itself.
 
-W katalogu projektu uruchom:
+From the project directory, run:
 
 ```bash
 bash scripts/install.sh
 ```
 
-Instalator dodaje pakiet widżetu, skrypt KWin do wykrywania pełnego ekranu i usługę użytkownika `limity-ai-widget.service`. Nie wymaga hasła administratora. Jeśli widżet nie jest jeszcze w panelu, dodaj go w KDE pod nazwą **Limity AI**.
+The installer adds the widget, a KWin script that detects fullscreen windows, and the `limity-ai-widget.service` user service. It does not require an administrator password. If the widget is not already on your panel, add it in KDE under the name **Limity AI**.
 
-1. Kliknij widżet, aby otworzyć dedykowanego Falkona ze stronami Usage ChatGPT i Claude.
-2. Zaloguj się na obu stronach tak jak zwykle. Haseł i kodów nie wpisuje się do widżetu.
-3. Kliknij w widżecie **Zakończ logowanie** albo zamknij wszystkie okna dedykowanego Falkona. Pozwoli to czytnikowi ponownie użyć jego profilu.
-4. Poczekaj na pierwszy odczyt. Falkon nie musi być później otwarty.
+1. Click the widget to open ChatGPT and Claude Usage pages in a dedicated Falkon profile.
+2. Sign in on both sites as usual. Enter passwords and verification codes on the sites, not in the widget.
+3. Click **Zakończ logowanie** (“Finish sign-in”) in the widget, or close every window of the dedicated Falkon instance. This lets the background reader reopen the profile.
+4. Wait for the first reading. Falkon can stay closed afterward.
 
-Okno Falkona otwiera się wyłącznie po działaniu użytkownika w widżecie. Gdy logowanie wygaśnie, kliknięcie widżetu otworzy stronę wymagającą ponownego logowania.
+Falkon opens only after an action in the widget. If a sign-in session expires, clicking the widget opens the page that needs you to sign in again.
 
-## Codzienne używanie
+## Using the widget
 
-| Element | Co oznacza |
+| Display | Meaning |
 | --- | --- |
-| `GPT 42% · Claude 12%` | Najniższy dostępny procent pozostałego limitu każdej usługi. |
-| „Obecna sesja” | Pozostały procent krótkiego limitu, jeśli strona Usage go podaje. |
-| „Limit tygodniowy” | Pozostały procent limitu tygodniowego. |
-| „Reset” | Lokalny dzień i godzina resetu w strefie `Europe/Warsaw`. Znak `~` oznacza godzinę obliczoną z podanego przez serwis czasu względnego. |
-| „Odczyt” | Godzina ostatniego udanego pobrania danych danej usługi. |
-| „brak danych” | Tego limitu nie ma na stronie, nie został jeszcze odczytany albo odczyt się nie powiódł. |
+| `GPT 42% · Claude 12%` | The lowest available remaining percentage for each service. |
+| **Obecna sesja** (“Current session”) | The remaining percentage of the shorter session limit, if the Usage page provides it. |
+| **Limit tygodniowy** (“Weekly limit”) | The remaining percentage of the weekly limit. |
+| **Reset** | The reset day and time in the `Europe/Warsaw` time zone. A leading `~` means the time was calculated from a relative countdown shown by the service. |
+| **Odczyt** (“Read”) | The time of the last successful reading for that service. |
+| **brak danych** (“no data”) | The page does not provide that limit, it has not been read yet, or the reading failed. |
 
-Czytnik odświeża strony automatycznie co 5 minut. Przycisk **⟳** w szczegółach zleca ręczny odczyt. Przyciski **ChatGPT ↗** i **Claude ↗** otwierają wybraną stronę w dedykowanym Falkonie, na przykład gdy trzeba ponownie się zalogować.
+The background reader refreshes the pages every five minutes. The **⟳** button requests a manual refresh. **ChatGPT ↗** and **Claude ↗** open the selected page in the dedicated Falkon profile, for example when you need to sign in again.
 
-Podczas aktywnej gry w trybie pełnoekranowym automatyczny odczyt jest wstrzymany. Panel pokazuje ostatnie znane wartości, a szczegóły komunikat „Wstrzymano podczas pełnego ekranu”. Po opuszczeniu pełnego ekranu czytnik wznawia pracę po około 15 sekundach. Widżet nie otwiera wtedy żadnego okna.
+Automatic readings pause while the active window is fullscreen. The panel keeps the last known values, and the expanded widget shows **Wstrzymano podczas pełnego ekranu** (“Paused during fullscreen”). Reading resumes about 15 seconds after you leave fullscreen. No window opens at that point.
 
-Na obecnej stronie Usage tego konta ChatGPT widoczny jest procent limitu tygodniowego, ale nie ma osobnego procentu bieżącej sesji. Dlatego widżet pokazuje przy sesji ChatGPT „brak danych”; nie wylicza jej z limitu tygodniowego. Claude udostępnia oba procenty.
+On the ChatGPT account used to test this project, the Usage page shows a weekly percentage but no separate percentage for the current session. The widget therefore shows **brak danych** for the ChatGPT session; it does not infer a session value from the weekly limit. Claude provides both percentages.
 
-## Gdy nie widać procentów
+## Troubleshooting
 
-| Objaw | Sprawdź |
+| Symptom | What to check |
 | --- | --- |
-| W panelu jest `—` | Rozwiń widżet. Jeśli prosi o logowanie, kliknij go i zaloguj się w Falkonie. Jeśli jest napis „Usługa widgetu nie działa”, sprawdź usługę poleceniem poniżej. |
-| Widać „Przeglądarka jest otwarta” po zamknięciu jednego okna | Falkon może mieć jeszcze inne okno tego profilu. Kliknij **Zakończ logowanie** w widżecie. |
-| Widać „Wstrzymano podczas pełnego ekranu” | To oczekiwane podczas gry. Wyjdź z trybu pełnoekranowego i poczekaj około 15 sekund. |
-| Widać „Oczekiwanie na stan pełnego ekranu z KDE” | Skrypt KWin nie przesłał jeszcze stanu. Uruchom `bash scripts/install.sh`; jeśli nadal nie działa, wyloguj się i zaloguj ponownie do KDE. |
-| W szczegółach ChatGPT przy sesji jest „brak danych” | Ta strona ChatGPT nie pokazuje obecnie procentu sesji. Limit tygodniowy powinien być nadal widoczny. |
-| Po aktualizacji kodu panel nadal pokazuje stary napis | Wykonaj kroki z sekcji „Aktualizacja” poniżej. |
+| The panel shows `—` | Open the widget. If it asks you to sign in, use the dedicated Falkon window. If it shows **Usługa widgetu nie działa** (“Widget service is not running”), check the service with the command below. |
+| **Przeglądarka jest otwarta** (“Browser is open”) remains after closing one window | Another window of the dedicated Falkon profile may still be open. Click **Zakończ logowanie** in the widget. |
+| **Wstrzymano podczas pełnego ekranu** appears | This is expected during fullscreen games. Leave fullscreen and wait about 15 seconds. |
+| **Oczekiwanie na stan pełnego ekranu z KDE** (“Waiting for KDE fullscreen status”) appears | The KWin script has not reported its state yet. Run `bash scripts/install.sh`; if the message persists, sign out of KDE and sign back in. |
+| The ChatGPT session shows **brak danych** | The tested ChatGPT Usage page does not currently expose a session percentage. The weekly limit should still be available. |
+| The panel still shows an old layout after an update | Follow the steps in “Updating and removing” below. |
 
-Stan usługi i jej ostatnie komunikaty:
+Check the service and its recent messages:
 
 ```bash
 systemctl --user status limity-ai-widget.service
 journalctl --user -u limity-ai-widget.service -n 50 --no-pager
 ```
 
-Test bieżącego stanu, który nie uruchamia przeglądarki:
+Check the current state without opening a browser:
 
 ```bash
 python3 scripts/check_live.py
 ```
 
-Test z ponownym odczytem obu stron:
+Request a fresh reading of both pages:
 
 ```bash
 python3 scripts/check_live.py --refresh
 ```
 
-Wariant `--refresh` sam odmawia odczytu podczas pełnego ekranu oraz gdy dedykowany Falkon pozostaje otwarty. Wynik `GREEN` oznacza, że są dostępne trzy procenty: tygodniowy ChatGPT oraz sesja i tydzień Claude. Osobna sesja ChatGPT nie jest warunkiem tego testu.
+The `--refresh` check refuses to run while a fullscreen window is active or the dedicated Falkon instance is open. `GREEN` means three expected percentages are available: ChatGPT weekly, Claude session, and Claude weekly. A separate ChatGPT session value is not required by this check.
 
-## Aktualizacja i usunięcie
+## Updating and removing
 
-Po zmianie kodu uruchom instalator ponownie i zrestartuj usługę, aby wczytała nowy kod Pythona:
+After changing the code, rerun the installer and restart the service so it loads the new Python code:
 
 ```bash
 bash scripts/install.sh
 systemctl --user restart limity-ai-widget.service
 ```
 
-Jeśli zmienił się wygląd widżetu, a panel nadal pokazuje starą wersję, przeładuj panel poza grą:
+If you change the widget's appearance and the panel still shows the old version, reload the panel outside a game:
 
 ```bash
 systemctl --user restart plasma-plasmashell.service
 ```
 
-Panel może na moment zniknąć i wrócić. Samo przeładowanie nie otwiera okna logowania. Usługa wskazuje na **aktualną ścieżkę katalogu projektu**; po przeniesieniu projektu uruchom instalator z nowego miejsca.
+The panel may briefly disappear and return. Reloading it does not open a sign-in window. The user service points to the **current project directory**; rerun the installer if you move the project.
 
-Aby usunąć usługę i pakiety KDE:
+To remove the service and KDE packages:
 
 ```bash
 bash scripts/uninstall.sh
 ```
 
-Skrypt usuwający **zachowuje** lokalny profil przeglądarki i zapisane w nim sesje. Domyślnie znajdują się w `~/.local/share/limity-ai-widget`. Usuń ten katalog osobno tylko wtedy, gdy chcesz skasować również te dane. Konfiguracja usługi z lokalnym tokenem pozostaje w `~/.config/limity-ai-widget`.
+The uninstall script **keeps** the dedicated browser profile and its saved sessions, normally under `~/.local/share/limity-ai-widget`. Remove that directory separately only if you also want to delete that data. The local service configuration and token remain under `~/.config/limity-ai-widget`.
 
-## Prywatność, zasoby i ograniczenia
+## Privacy, resource use, and limitations
 
-Falkon i niewidoczny czytnik Qt WebEngine korzystają z osobnego profilu. Nie używają profili Firefoksa, Brave ani Vivaldiego. Do widżetu trafiają odczytane procenty, czasy resetu, stan odczytu i godzina ostatniego odczytu; hasła wpisujesz bezpośrednio na stronach usług. Widżet łączy się z czytnikiem przez lokalny adres `127.0.0.1` i token zapisany w plikach użytkownika.
+Falkon and the invisible Qt WebEngine reader use a dedicated profile. They do not use Firefox, Brave, or Vivaldi profiles. The widget receives percentages, reset times, reading status, and the last reading time. You enter passwords directly on the services' sites. The widget connects to the reader through `127.0.0.1` using a token stored in files owned by the user.
 
-Na tym komputerze, przed zalogowaniem, niewidoczny czytnik zużywał około **183 MiB PSS** i 0,01 s CPU przez 5 s bezczynności. Falkon z dwiema otwartymi stronami zużywał około **1,1 GiB PSS**, dlatego jest uruchamiany tylko na żądanie. Zużycie po zalogowaniu może się różnić.
+In a measurement on the test machine before signing in, the idle reader used about **183 MiB PSS** and 0.01 s of CPU time over five seconds. Falkon with two pages open used about **1.1 GiB PSS**, so it runs only when requested. Resource use after signing in may differ.
 
-Projekt odczytuje tekst widocznych stron Usage, bez korzystania z API do limitów kont osobistych. Zmiana układu stron może wymagać poprawienia parsera. Wartości są ostatnim udanym odczytem, więc między odświeżeniami mogą być nieaktualne. Szczegóły implementacji są w [dokumentacji technicznej](docs/ARCHITECTURE.md).
+The project reads text from the Usage pages rather than using an API for personal account limits. Changes to those pages may require parser updates. Values reflect the last successful reading and can become stale between refreshes. Implementation details are in the [technical documentation (Polish)](docs/ARCHITECTURE.md).
